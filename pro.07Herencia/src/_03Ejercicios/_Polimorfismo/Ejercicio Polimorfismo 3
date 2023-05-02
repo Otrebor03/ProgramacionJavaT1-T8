@@ -1,0 +1,62 @@
+public interface Conectable {
+	public contectar(String red);
+}
+
+public abstract class Televisor {
+	private String modelo;
+	public Televisor(String modelo){
+		this.modelo = modelo;
+		System.out.print(“Se crea Televisor ” + modelo);
+	}
+	public Televisor(){
+		this.modelo = “desconocido”;
+		System.out.print(“Se crea Televisor ” + modelo);
+	}
+	public abstract void resolucion();
+}
+
+public class TVTubo extends Televisor{
+	public TVTubo (String modelo){
+		super(modelo);
+	}
+	public TVTubo (){
+		System.out.println(“Se crea TVTubo”);
+	}
+	public void resolucion(){
+		System.out.println "405 lineas";
+	}
+}
+-------------------------------------------------------
+public class TVPlano extends Televisor{
+	public TVPlano (String modelo){
+		super(modelo);
+		System.out.println(“Plano”);
+	}
+	public void resolucion(){
+		System.out.println “1920 x 1080”;
+	}
+}
+-------------------------------------------------------
+public class SmartTV extends TVPlano implements Conectable{
+	public SmartTV (String modelo){
+		super(modelo);
+	}
+	public void conectar(String redWifi){
+		System.out.println(“Conectado a “ + redWifi);
+	}
+}
+
+
+
+
+TVTubo tubo1 = new TVTubo(“vega”) -->
+tubo1.resolucion(); -->
+Television tv1 = new TVTubo() -->
+tv1.resolucion(); --> OK / 405 lineas
+TVPlano tvp1 = new SmartTV(“H55”); --> OK / H55 Plana
+tpv1.conectar(“casa”); --> EC / Porque la clase padre tvplano no tiene metodo conectar
+tpv1.resolucion(); --> OK / 1920x1080
+SmartTV s1 = (SmartTV) tvp1; --> OK
+s1.conectar(“vecino”); --> OK / Conectando a vecino
+Television tv2 = new Television(); --> EE / Televisor es abstracto
+tv2.resolucion();--> 

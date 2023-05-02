@@ -1,0 +1,48 @@
+++EJERCICIO 1 OBREROS++
+
+public interface Montador{
+	void montar(String x);
+	void desmontar(String x);
+}
+
+public class Obrero{
+	public Obrero(){System.out.println(“Se crea Obrero”);}
+	public void saludar(){System.out.println(“Hola, soy Obrero”);}
+	...
+}
+
+public class Carpintero extends Obrero implements Montador {
+	public Carpintero(){System.out.println(“Se crea Carpintero”);}
+	public void montar(String x) {System.out.println(“Montando “ + x);}
+	public void desmontar(String x) {System.out.println(“Desmontando “ + x);}
+	public void clavar() { … }
+}
+
+public class Albañil extends Obrero {
+	public Albañil() {
+		super();
+		System.out.println(“Se crea Albañil”);
+	}
+	public void levantarMuro(){
+		System.out.println(“Levantando muro …”);
+	}
+}
+
+a) Indicar qué líneas del siguiente fragmento de programa producirán errores de compilación, y porque
+b) Una vez eliminadas las líneas con error, indicar cuál sería la salida por pantalla del programa.
+
+public static void main(String a[]){
+	Montador m1 = new Carpintero();   //SE MUESTRA POR PANTALLA --> SE CREA OBRERO SE CREA CARPINTERO\\
+	Montador m2 = new Albañil();    //ESTO ESTA MAL\\
+	Obrero o1 = new Carpintero();  //SE MUESTRA POR PANTALLA --> SE CREA OBRERO SE CREA CARPINTERO\\
+	Obrero o2 = new Albañil();		//SE MUESTRA POR PANTALLA --> SE CREA OBRERO SE CREA ALBAÑIL\\
+	o1.montar(“Mesa”);				//ESTO ESTA MAL\\
+	o2.levantarMuro();				//ESTO ESTA MAL\\
+	m1.saludar();					//ESTO ESTA MAL\\
+	m1.montar(“Silla”);				//SE MUESTRA POR PANTALLA --> MONTANDO SILLA\\
+	((Albañil)o2).levantarMuro();	//SE MUESTRA POR PANTALLA --> LEVANTANDO MURO\\
+	((Albañil)o1).levantarMuro();	//ESTO ESTA MAL\\
+}
+ 
+ 
+

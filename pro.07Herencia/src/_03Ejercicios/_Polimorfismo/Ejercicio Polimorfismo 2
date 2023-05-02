@@ -1,0 +1,65 @@
+	++EJERCICIO 2++
+	interface Instalador{
+		public void instalarPrograma(String nombrePrograma);
+	}
+	class Usuario{
+		protected String nombre;
+		protected String contraseña;
+		public Usuario(String n,String c){
+			nombre = n;
+			contraseña = c;
+			sout(“Se crea usuario “ + nombre);
+		}
+		public void imprimirArchivo(String nombreArchivo){
+			sout(“El usuario “ + nombre + “ imprime ” + nombreArchivo);
+		}
+	}
+	
+	class UsuarioAvanzado extends Usuario implements Instalador {
+		public UsuarioAvanzado(String n, String c){
+			super(n,c);
+		}
+		public void instalarPrograma(String nombrePrograma){
+			sout(“El usuario + nombre + “ instala “ + nombrePrograma);
+		}
+		@Override 
+		public void imprimirArchivo(String nombreArchivo){
+			sout(“El usuario AVANZADO “ + nombre + “ imprime ” + nombreArchivo);
+		}
+	}
+	
+	class Administrador extends UsuarioAvanzado implements Instalador {
+		public Administrador(String n, String c){
+		super(n,c);
+		}
+		public void desinstalarPrograma(String nombrePrograma){
+			sout(“El usuario + nombre + “ desinstala “ + nombrePrograma);
+		}
+	}
+	class Invitado extends Usuario {
+		public Invitado(){
+			super(“invitado”, “”);
+		}
+	}
+
+
+
+	Basándote en los interfaces y clases anteriores, indica qué líneas del siguiente programa son correctas (marcando la columna OK), tienen errores de
+	compilación (EC) o tienen errores de ejecución (EE). Si no tienen errores indica qué salida producen al ejecutarse el programa y si contienen errores, cuál
+	es el motivo.
+		
+	Administrador a1 = new Administrador(“Admin”,”0123”); --> OK // SE CREA USUARIO ADMIN
+	a1.instalarPrograma(“Word”); --> OK 
+	a1.imprimirArchivo(“carta.txt”); --> OK
+	Instalador i1 = new UsuarioAvanzado(“Borja”,”0123”); --> OK
+	i1.instalarPrograma(“Word”); --> OK // eL USUARIO AVANZADO BORJA INSTALA WORD 
+	i1.imprimirArchivo(“carta.txt”); --> EC
+	Instalador i2 = new Invitado(); --> EC
+	i2.imprimirArchivo(“carta.txt); --> BLANCO
+	Usuario u1 = new UsuarioAvanzado(“Raul”,”0123”); --> SE CREA USUARIO RAUL
+	u1.instalarPrograma(“Word”); --> EC
+	u1.imprimirArchivo(“carta.txt”); --> OK // 
+	((UsuarioAvanzado)u1).instalarPrograma(“Word”); --> OK
+	((Administrador)u1).desinstalarPrograma(“Word”); --> OK
+	((UsuarioAvanzado)u1).desinstalarPrograma(“Word”); --> EC
+
